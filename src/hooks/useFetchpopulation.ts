@@ -7,6 +7,11 @@ type PopulationType = {
   message: null
   result: { boundaryYear: number; data: [{ label: string; data: [{ year: number; value: number; rate?: number }] }] }
 }
+
+type PrefectureData = {
+  prefCode: number
+  prefName: string
+}
 const apikey = process.env.NEXT_PUBLIC_URL
 
 export const useFetchPopulation = () => {
@@ -39,7 +44,6 @@ export const useFetchPopulation = () => {
     fetchData.result.data.map((item) => {
       setPopulationData(item.data)
     })
-
     // setPopulationData()
     // console.log(populationData)
   }

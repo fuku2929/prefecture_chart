@@ -2,16 +2,19 @@ import React, { useEffect } from 'react'
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 import { useFetchPopulation } from '@/hooks/useFetchpopulation'
 
-const PopulationChart = () => {
-  const { populationData } = useFetchPopulation()
+interface Props {
+  populationData: [{ year: number; value: number }]
+}
+
+const PopulationChart = (props:{populationData: [{ year: number; value: number; }];}) => {
   // useEffect(() => {
   //   PopulationChart(data)
   // }, [populationData])
-  console.log(populationData) 
+  // console.log(populationData)
   // props:[{ year: number; value: number }]
   return (
-    <LineChart width={800} height={400} data={populationData}>
-      <XAxis type="number" dataKey="year" />
+    <LineChart width={800} height={400} data={props.populationData}>
+      <XAxis  dataKey="year"  />
       <YAxis type="number" dataKey="value" />
       {/* <CartesianGrid stroke="#eee" strokeDasharray="5 5"/> */}
       <Line type="monotone" dataKey="value" stroke="#8884d8" />

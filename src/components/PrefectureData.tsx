@@ -2,15 +2,14 @@ import { useQuery } from 'react-query'
 import { useFetchPopulation } from '@/hooks/useFetchpopulation'
 import { useFetchPrefecture } from '@/hooks/useFetchPrefecture'
 
-interface Props {
-  setPopulationData: React.Dispatch<React.SetStateAction<[{ year: number; value: number }]>>
+type Props = {
+  getPopulationData: (prefCode: number) => void
   populationData: [{ year: number; value: number }]
 }
-
-const Prefecture: React.FC<Props> = ({ setPopulationData }: Props) => {
+// { setPopulationData }: Props
+const PrefectureData = ({ populationData, getPopulationData }: Props) => {
   const { isLoading, data } = useFetchPrefecture()
   // console.log(isLoading)
-  const { getPopulationData } = useFetchPopulation()
 
   // const fetchPopulation = useFetchPopulation()
   if (isLoading) {
@@ -18,33 +17,32 @@ const Prefecture: React.FC<Props> = ({ setPopulationData }: Props) => {
   }
   return (
     <>
-      <>
-        {isLoading ? (
-          <span>Loading...</span>
-        ) : (
-          <div>
-            <h2>都道府県一覧</h2>
-            <div>
-              {data.map((item: { prefCode: number; prefName: string }) => {
-                return (
-                  <>
-                    <div key={item.prefCode}>{item.prefName} </div>
-                    <input
-                      id="prefecture_checkbox"
-                      type="checkbox"
-                      onChange={() => {
-                        getPopulationData(item.prefCode)
-                      }}
-                    />
-                  </>
-                )
-              })}
-            </div>
-          </div>
-        )}
-      </>
+      {isLoading ? (
+        <span>Loading...</span>
+      ) : (
+        <div>
+          <h2>都道府県一覧</h2>
+          {data.map((item: { prefCode: number; prefName: string }) => {
+            return (
+              // ここにCSS
+              <div>
+                <label key={item.prefCode}>
+                  <input
+                    id="prefecture_checkbox"
+                    type="checkbox"
+                    onChange={() => {
+                      getPopulationData(item.prefCode)
+                    }}
+                  />
+                  {item.prefName}
+                </label>
+              </div>
+            )
+          })}
+        </div>
+      )}
     </>
   )
 }
 
-export default Prefecture
+export default PrefectureData

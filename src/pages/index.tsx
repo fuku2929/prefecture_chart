@@ -5,8 +5,8 @@ import { useQuery } from 'react-query'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 import studyDataList from '@/components/studyData'
-import StudyChart from '@/components/StudyChart'
-import PopulationChart from '@/components/StudyChart'
+import StudyChart from '@/components/PopulationChart'
+import PopulationChart from '@/components/PopulationChart'
 import PrefectureData from '../components/PrefectureData'
 import { useFetchPopulation } from '@/hooks/useFetchpopulation'
 // import studyData from '@/components/studyData';
@@ -20,7 +20,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="App">
-        <PopulationChart populationData ={populationData} />
+        <PopulationChart populationData={populationData} />
         <PrefectureData populationData={populationData} getPopulationData={getPopulationData} />
       </div>
     </QueryClientProvider>

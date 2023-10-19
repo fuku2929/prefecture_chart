@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { useEffect, useState } from 'react'
-import PopulationChart from '@/components/StudyChart'
+import PopulationChart from '@/components/PopulationChart'
 // import { populationData, setPopulationData } from "@/pages/index";
 
 type PopulationType = {

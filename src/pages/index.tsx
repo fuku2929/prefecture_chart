@@ -14,17 +14,18 @@ import { useFetchPopulation } from '@/hooks/useFetchpopulation'
 const queryClient = new QueryClient()
 
 function App() {
-  const { populationData, getPopulationData } = useFetchPopulation()
+  const { populationData, getPopulationData, checkedValues } = useFetchPopulation()
   // const [populationData, setPopulationData] = useState<[{ year: number; value: number }]>([{ year: 0, value: 0 }])
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="App">
-        <PopulationChart populationData={populationData} />
-        <PrefectureData populationData={populationData} getPopulationData={getPopulationData} />
+        <PopulationChart populationData={populationData} checkedValues={checkedValues}/>
+        <PrefectureData populationData={populationData} getPopulationData={getPopulationData}  />
       </div>
     </QueryClientProvider>
   )
 }
-//setPopulationData={setPopulationData} populationData={populationData}
+
+
 export default App

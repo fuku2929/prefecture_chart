@@ -3,17 +3,19 @@ import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'r
 import { useFetchPopulation } from '@/hooks/useFetchpopulation'
 
 interface Props {
+  checkedValues: [{ year: number; value: number }][]
   populationData: [{ year: number; value: number }]
 }
 
-const PopulationChart = (props:{populationData: [{ year: number; value: number; }];}) => {
+
+const PopulationChart = ({populationData, checkedValues}:Props) => {
   // useEffect(() => {
   //   PopulationChart(data)
   // }, [populationData])
   // console.log(populationData)
   // props:[{ year: number; value: number }]
   return (
-    <LineChart width={800} height={400} data={props.populationData}>
+    <LineChart width={800} height={400} data={populationData}>
       <XAxis  dataKey="year"  />
       <YAxis type="number" dataKey="value" />
       {/* <CartesianGrid stroke="#eee" strokeDasharray="5 5"/> */}

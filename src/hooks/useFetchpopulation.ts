@@ -16,7 +16,10 @@ const apikey = process.env.NEXT_PUBLIC_URL
 
 export const useFetchPopulation = () => {
   const [populationData, setPopulationData] = useState<[{ year: number; value: number }]>([{ year: 0, value: 0 }])
+  const [checkedValues, setCheckedValues] = useState<[{ year: number; value: number }][]>([]);
 
+  // useState<[{ year: number; value: number }][]>([[{ year: 0, value: 0 }]])
+  // console.log(populationData)
   const fetchPopulation = (props: number): Promise<PopulationType> => {
     return new Promise<PopulationType>((resolve, reject) => {
       if (!apikey) return
@@ -45,12 +48,15 @@ export const useFetchPopulation = () => {
       setPopulationData(item.data)
     })
     // setPopulationData()
-    // console.log(populationData)
+    // const newPopulationData = Object.assign(populationData, item.data)
+    // setPopulationData(newPopulationData)
+    setCheckedValues([...checkedValues, populationData])
+    console.log(checkedValues)
   }
   // useEffect(() => {
   //   PopulationChart()
   // }, [populationData])
-  return { populationData, getPopulationData }
+  return { populationData, getPopulationData, checkedValues }
 
   // function Prefecture() {
   //   const { data, isLoading } = useQuery('population', fetchPopulation)

@@ -25,7 +25,7 @@ const PrefectureData = ({ populationData, getPopulationData }: Props) => {
           {data.map((item: { prefCode: number; prefName: string }) => {
             return (
               // ここにCSS
-              <div>
+              <div className='prefecture'>
                 <label key={item.prefCode}>
                   <input
                     id="prefecture_checkbox"

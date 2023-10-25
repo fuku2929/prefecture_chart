@@ -26,7 +26,7 @@ const PopulationChart = ({populationData, checkedValues}:Props) => {
     </ResponsiveContainer>
     </div>
   )
-
+//レスポンシブコンテナ
 }
 
 export default PopulationChart

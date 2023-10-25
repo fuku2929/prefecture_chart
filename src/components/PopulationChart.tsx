@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
-import { useFetchPopulation } from '@/hooks/useFetchpopulation'
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import styles from '@/components/PopulationChart.module.css';
 
 interface Props {
   checkedValues: [{ year: number; value: number }][]
@@ -9,13 +9,10 @@ interface Props {
 
 
 const PopulationChart = ({populationData, checkedValues}:Props) => {
-  // useEffect(() => {
-  //   PopulationChart(data)
-  // }, [populationData])
-  // console.log(populationData)
-  // props:[{ year: number; value: number }]
   return (
-    <LineChart width={800} height={400} data={populationData}>
+    <div style={{ width: '100%', height: '250px' }}>
+    <ResponsiveContainer width="100%" height="100%">
+    <LineChart className={styles.populationChart} width={800} height={400} data={populationData}>
       <XAxis  dataKey="year"  />
       <YAxis type="number" dataKey="value" />
       {checkedValues.map((item:{year: number, value: number, rate?: number}[], index)=>{
@@ -26,6 +23,8 @@ const PopulationChart = ({populationData, checkedValues}:Props) => {
       })}
       
     </LineChart>
+    </ResponsiveContainer>
+    </div>
   )
 
 }

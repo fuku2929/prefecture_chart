@@ -10,6 +10,7 @@ import PrefectureData from '../components/PrefectureData'
 import { useFetchPopulation } from '@/hooks/useFetchpopulation'
 import RadioButton from '@/components/RadioBotton'
 // import studyData from '@/components/studyData';
+import styles from '@/styles/Home.module.css'
 
 const queryClient = new QueryClient()
 
@@ -21,10 +22,10 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="App">
+      <div className={styles.App}>
         <RadioButton populationType={populationType} setPopulationType={setPopulationType}/>
         <PopulationChart populationData={populationData} checkedValues={checkedValues}/>
-        <PrefectureData populationData={populationData} getPopulationData={getPopulationData}  />
+        <PrefectureData populationData={populationData} getPopulationData={getPopulationData} populationType={populationType}  />
       </div>
     </QueryClientProvider>
   )

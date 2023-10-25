@@ -32,10 +32,10 @@ export const useFetchPopulation = () => {
   //   //親コンポーネント？で関数呼び出した後のsetstateのやり方
   // }
 
-  const getPopulationData = async (prefCode: number) => {
+  const getPopulationData = async (prefCode: number, PopulationType: number) => {
     const fetchData = await fetchPopulation(prefCode)
     console.log(populationData)
-    setPopulationData(fetchData.result.data[0].data)
+    setPopulationData(fetchData.result.data[PopulationType].data)
     // // fetchData.result.data.map((item) => {
     // //   setPopulationData(item.data)
     // })

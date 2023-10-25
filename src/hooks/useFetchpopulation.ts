@@ -1,7 +1,4 @@
-import { useQuery } from 'react-query'
-import { useEffect, useState } from 'react'
-import PopulationChart from '@/components/PopulationChart'
-// import { populationData, setPopulationData } from "@/pages/index";
+import { useState } from 'react'
 
 type PopulationType = {
   message: null
@@ -18,8 +15,6 @@ export const useFetchPopulation = () => {
   const [populationData, setPopulationData] = useState<[{ year: number; value: number }]>([{ year: 0, value: 0 }])
   const [checkedValues, setCheckedValues] = useState<[{ year: number; value: number }][]>([]);
 
-  // useState<[{ year: number; value: number }][]>([[{ year: 0, value: 0 }]])
-  // console.log(populationData)
   const fetchPopulation = (props: number): Promise<PopulationType> => {
     return new Promise<PopulationType>((resolve, reject) => {
       if (!apikey) return
@@ -29,38 +24,24 @@ export const useFetchPopulation = () => {
         .then((res) => res.json())
         .then((data) => resolve(data))
         .catch((error) => reject(error))
-      // console.log(res)
-      // return res
-      //data.result.data[0].data
     })
   }
-  // console.log(populationData)
   // const getPrefecturePopulation = async () => {
   //   const prefecturePopulationData = await fetchPopulation(props)
   //   // setPopulationData(prefecturePopulationData.result[0].data)
   //   //親コンポーネント？で関数呼び出した後のsetstateのやり方
   // }
-  //data.result.data[0].map
 
   const getPopulationData = async (prefCode: number) => {
     const fetchData = await fetchPopulation(prefCode)
-    fetchData.result.data.map((item) => {
-      setPopulationData(item.data)
-    })
-    // setPopulationData()
+    console.log(populationData)
+    setPopulationData(fetchData.result.data[0].data)
+    // // fetchData.result.data.map((item) => {
+    // //   setPopulationData(item.data)
+    // })
     // const newPopulationData = Object.assign(populationData, item.data)
-    // setPopulationData(newPopulationData)
     setCheckedValues([...checkedValues, populationData])
-    console.log(checkedValues)
   }
-  // useEffect(() => {
-  //   PopulationChart()
-  // }, [populationData])
   return { populationData, getPopulationData, checkedValues }
 
-  // function Prefecture() {
-  //   const { data, isLoading } = useQuery('population', fetchPopulation)
-  //   console.log(data)
-  // }
 }
-//バケツリレーの感覚

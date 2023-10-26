@@ -2,15 +2,13 @@ import React, { useState } from 'react'
 // import StudyChart from '../components/StudyChart';
 import { ImportsNotUsedAsValues } from 'typescript'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
-import studyDataList from '@/components/studyData'
-import StudyChart from '@/components/PopulationChart'
 import PopulationChart from '@/components/PopulationChart'
 import PrefectureData from '../components/PrefectureData'
 import { useFetchPopulation } from '@/hooks/useFetchpopulation'
 import RadioButton from '@/components/RadioBotton'
 // import studyData from '@/components/studyData';
 import styles from '@/styles/Home.module.css'
+import Header from '@/components/Header'
 
 const queryClient = new QueryClient()
 
@@ -23,6 +21,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className={styles.App}>
+        <Header />
         <RadioButton populationType={populationType} setPopulationType={setPopulationType}/>
         <PopulationChart populationData={populationData} checkedValues={checkedValues}/>
         <PrefectureData populationData={populationData} getPopulationData={getPopulationData} populationType={populationType}  />

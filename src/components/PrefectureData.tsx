@@ -33,7 +33,7 @@ const PrefectureData = ({ populationData, getPopulationData, populationType }: P
                       getPopulationData(item.prefCode, populationType)
                     }}
                   />
-                  {item.prefName}
+                  {item.prefName}&nbsp;
                 </label>
               </div>
             )

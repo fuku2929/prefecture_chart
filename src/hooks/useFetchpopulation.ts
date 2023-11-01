@@ -61,7 +61,13 @@ export const useFetchPopulation = () => {
     }
     setCheckedDataList([...checkedDataList, { label: prefName, data: populationData }])
       for (let i = 0; i < jsonDataList.length; i++) {
+        if (jsonDataList[i].hasOwnProperty(prefName)){
+          delete jsonDataList[i][prefName]
+          console.log(jsonDataList)
+        } else{
         jsonDataList[i][prefName] = fetchData.result.data[PopulationType].data[i].value
+        }
+
       }
     
 

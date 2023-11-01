@@ -1,31 +1,30 @@
-import React, { useEffect } from 'react'
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import styles from '@/components/PopulationChart.module.css';
+import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
+import styles from '@/components/PopulationChart.module.css'
 
 interface Props {
-  checkedValues: [{ year: number; value: number }][]
-  populationData: [{ year: number; value: number }]
+  jsonDataList: Array<any>
+  prefNames: string[]
 }
 
+const PopulationChart = ({ jsonDataList, prefNames }: Props) => {
+  const lineItems = prefNames.map((prefName) => <Line key={prefName} dataKey={prefName} stroke="#336B87" />)
 
-const PopulationChart = ({populationData, checkedValues}:Props) => {
   return (
     <div style={{ width: '100%', height: '250px' }}>
-    <ResponsiveContainer width="100%" height="100%">
-    <LineChart className={styles.populationChart} width={800} height={400} data={populationData} >
-      <XAxis  dataKey="year"  />
-      <YAxis type="number" dataKey="value" textAnchor='start' />
-      {checkedValues.map((item:{year: number, value: number, rate?: number}[], index)=>{
-        // console.log(item)
-        return(
-          <Line key={index} type="monotone" dataKey="value" stroke="#8884d8" />
-        )
-      })}
-    </LineChart>
-    </ResponsiveContainer>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart className={styles.populationChart} width={800} height={400} data={jsonDataList}>
+          <XAxis dataKey="year" />
+          <YAxis
+            type="number"
+            tick={{
+              fontSize: 12
+            }}
+          />
+          {lineItems}
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   )
-//レスポンシブコンテナ
 }
 
 export default PopulationChart

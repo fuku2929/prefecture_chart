@@ -1,15 +1,11 @@
-import { useQuery } from 'react-query'
-import { useFetchPopulation } from '@/hooks/useFetchpopulation'
 import { useFetchPrefecture } from '@/hooks/useFetchPrefecture'
-import styles from '@/components/PrefectureData.module.css';
+import styles from '@/components/PrefectureData.module.css'
 
 type Props = {
-  getPopulationData: (prefCode: number, populationType: number) => void
-  populationData: [{ year: number; value: number }]
+  getPopulationData: (prefCode: number, prefName:string, populationType: number ) => void
   populationType: number
 }
-// { setPopulationData }: Props
-const PrefectureData = ({ populationData, getPopulationData, populationType }: Props) => {
+const PrefectureData = ({ getPopulationData, populationType }: Props) => {
   const { isLoading, data } = useFetchPrefecture()
 
   if (isLoading) {
@@ -24,13 +20,13 @@ const PrefectureData = ({ populationData, getPopulationData, populationType }: P
           <h2>都道府県一覧</h2>
           {data.map((item: { prefCode: number; prefName: string }) => {
             return (
-              <div className={styles.prefecture}>
-                <label key={item.prefCode}>
+              <div className={styles.prefecture} key={item.prefCode}>
+                <label>
                   <input
                     id="prefecture_checkbox"
                     type="checkbox"
                     onChange={() => {
-                      getPopulationData(item.prefCode, populationType)
+                      getPopulationData(item.prefCode, item.prefName, populationType)
                     }}
                   />
                   {item.prefName}&nbsp;

@@ -1,5 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import styles from '@/components/RadioButton.module.css'
+import React, { Dispatch, SetStateAction} from "react";
 
 interface Props {
     populationType:number 
@@ -37,7 +36,7 @@ const RadioButton = ({populationType, setPopulationType}:Props) => {
             <div className="row">
             {radioButtons.map(radio => {
                 return (
-                    <div className="col-4">
+                    <div key={radio.label} className="col-4">
                         <input className="form-check-input" type="radio" name="populationType" 
                             value={radio.value} checked={radio.value === populationType} onChange={changeValue}/>
                         <label className="form-check-label">

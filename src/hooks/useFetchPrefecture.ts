@@ -10,9 +10,7 @@ export const useFetchPrefecture = () => {
   const [data, setData] = useState<[{ prefCode: number; prefName: string }]>([{ prefCode: 0, prefName: '' }])
   const [isLoading, setIsLoading] = useState(false)
   const fetchPrefectures = (): Promise<PrefectureType> => {
-    // console.log(isLoading)
     return new Promise<PrefectureType>((resolve, reject) => {
-    //   console.log(isLoading)
       if (!apikey) return
       fetch('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
         headers: { 'X-API-KEY': apikey }

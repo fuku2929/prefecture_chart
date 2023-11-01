@@ -5,15 +5,34 @@ type PopulationType = {
   result: { boundaryYear: number; data: [{ label: string; data: [{ year: number; value: number; rate?: number }] }] }
 }
 
-type PrefectureData = {
-  prefCode: number
-  prefName: string
-}
 const apikey = process.env.NEXT_PUBLIC_URL
 
 export const useFetchPopulation = () => {
-  const [populationData, setPopulationData] = useState<[{ year: number; value: number }]>([{ year: 0, value: 0 }])
-  const [checkedValues, setCheckedValues] = useState<[{ year: number; value: number }][]>([]);
+  const [populationData, setPopulationData] = useState<{ year: number; value: number }[]>([])
+  const [checkedValues, setCheckedValues] = useState<{ year: number; value: number }[][]>([])
+  const [prefNames, setPrefNames] = useState<string[]>([])
+  const [checkedDataList, setCheckedDataList] = useState<{ label: string; data: { year: number; value: number }[] }[]>(
+    []
+  )
+  const [jsonDataList, setJsonDataList] = useState<Array<any>>([
+    { year: 1960 },
+    { year: 1965 },
+    { year: 1970 },
+    { year: 1980 },
+    { year: 1985 },
+    { year: 1990 },
+    { year: 1995 },
+    { year: 2000 },
+    { year: 2005 },
+    { year: 2010 },
+    { year: 2015 },
+    { year: 2020 },
+    { year: 2025 },
+    { year: 2030 },
+    { year: 2035 },
+    { year: 2040 },
+    { year: 2045 }
+  ])
 
   const fetchPopulation = (props: number): Promise<PopulationType> => {
     return new Promise<PopulationType>((resolve, reject) => {
@@ -26,22 +45,27 @@ export const useFetchPopulation = () => {
         .catch((error) => reject(error))
     })
   }
-  // const getPrefecturePopulation = async () => {
-  //   const prefecturePopulationData = await fetchPopulation(props)
-  //   // setPopulationData(prefecturePopulationData.result[0].data)
-  //   //親コンポーネント？で関数呼び出した後のsetstateのやり方
-  // }
 
-  const getPopulationData = async (prefCode: number, PopulationType: number) => {
+  const getPopulationData = async (prefCode: number, prefName: string, PopulationType: number) => {
     const fetchData = await fetchPopulation(prefCode)
-    console.log(populationData)
     setPopulationData(fetchData.result.data[PopulationType].data)
-    // // fetchData.result.data.map((item) => {
-    // //   setPopulationData(item.data)
-    // })
-    // const newPopulationData = Object.assign(populationData, item.data)
-    setCheckedValues([...checkedValues, populationData])
-  }
-  return { populationData, getPopulationData, checkedValues }
+    if (checkedValues.length) {
+      setCheckedValues([...checkedValues, populationData])
+    } else {
+      setCheckedValues([fetchData.result.data[PopulationType].data])
+    }
+    if (prefNames.length) {
+      setPrefNames([...prefNames, prefName])
+    } else {
+      setPrefNames([prefName])
+    }
+    setCheckedDataList([...checkedDataList, { label: prefName, data: populationData }])
+      for (let i = 0; i < jsonDataList.length; i++) {
+        jsonDataList[i][prefName] = fetchData.result.data[PopulationType].data[i].value
+      }
+    
 
+    setJsonDataList(jsonDataList)
+  }
+  return { populationData, getPopulationData, checkedValues, prefNames, checkedDataList, jsonDataList }
 }

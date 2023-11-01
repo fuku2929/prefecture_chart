@@ -1,20 +1,18 @@
 import { useFetchPrefecture } from '@/hooks/useFetchPrefecture'
 import styles from '@/components/PrefectureData.module.css'
+import ReactLoading from 'react-loading'
 
 type Props = {
-  getPopulationData: (prefCode: number, prefName:string, populationType: number ) => void
+  getPopulationData: (prefCode: number, prefName: string, populationType: number) => void
   populationType: number
 }
 const PrefectureData = ({ getPopulationData, populationType }: Props) => {
   const { isLoading, data } = useFetchPrefecture()
 
-  if (isLoading) {
-    return <span>Loading...</span>
-  }
   return (
     <>
       {isLoading ? (
-        <span>Loading...</span>
+        <ReactLoading type="spin" color="black" height="20px" width="20px" className={styles.mx} />
       ) : (
         <div>
           <h2>都道府県一覧</h2>

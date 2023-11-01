@@ -7,14 +7,14 @@ import styles from '@/styles/Home.module.css'
 import Header from '@/components/Header'
 
 function App() {
-  const { getPopulationData, jsonDataList, prefNames } = useFetchPopulation()
+  const { getPopulationData, jsonDataList, prefNames, popisLoading } = useFetchPopulation()
   const [populationType, setPopulationType] = useState<number>(0)
 
   return (
     <div className={styles.App}>
       <Header />
       <RadioButton populationType={populationType} setPopulationType={setPopulationType} />
-      <PopulationChart jsonDataList={jsonDataList} prefNames={prefNames} />
+      <PopulationChart jsonDataList={jsonDataList} prefNames={prefNames} popisLoading={popisLoading}/>
       <PrefectureData getPopulationData={getPopulationData} populationType={populationType} />
     </div>
   )

@@ -8,6 +8,7 @@ type PopulationType = {
 const apikey = process.env.NEXT_PUBLIC_URL
 
 export const useFetchPopulation = () => {
+  const [popisLoading, setPopIsLoading] = useState(false)
   const [populationData, setPopulationData] = useState<{ year: number; value: number }[]>([])
   const [checkedValues, setCheckedValues] = useState<{ year: number; value: number }[][]>([])
   const [prefNames, setPrefNames] = useState<string[]>([])
@@ -47,6 +48,7 @@ export const useFetchPopulation = () => {
   }
 
   const getPopulationData = async (prefCode: number, prefName: string, PopulationType: number) => {
+    setPopIsLoading(true)
     const fetchData = await fetchPopulation(prefCode)
     setPopulationData(fetchData.result.data[PopulationType].data)
     if (checkedValues.length) {
@@ -72,6 +74,8 @@ export const useFetchPopulation = () => {
     
 
     setJsonDataList(jsonDataList)
+    setPopIsLoading(false)
+
   }
-  return { populationData, getPopulationData, checkedValues, prefNames, checkedDataList, jsonDataList }
+  return { populationData, getPopulationData, checkedValues, prefNames, checkedDataList, jsonDataList, popisLoading }
 }

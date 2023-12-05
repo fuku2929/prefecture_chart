@@ -23,6 +23,10 @@ pnpm dev
 ## 使用した言語・フレームワーク
 
 node: 20.6.0
+
 next.js: 13.4.19
-react: 18.2.0,
+
+react: 18.2.0
+
 typescript: 5.2.2
+

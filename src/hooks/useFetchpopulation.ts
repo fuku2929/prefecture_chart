@@ -57,25 +57,34 @@ export const useFetchPopulation = () => {
       setCheckedValues([fetchData.result.data[PopulationType].data])
     }
     if (prefNames.length) {
-      setPrefNames([...prefNames, prefName])
+      if (prefNames.includes(prefName)) {
+        setPrefNames(prefNames.filter((item) => item !== prefName))
+      } else {
+        setPrefNames([...prefNames, prefName])
+      }
     } else {
       setPrefNames([prefName])
     }
     setCheckedDataList([...checkedDataList, { label: prefName, data: populationData }])
-      for (let i = 0; i < jsonDataList.length; i++) {
-        if (jsonDataList[i].hasOwnProperty(prefName)){
-          delete jsonDataList[i][prefName]
-          console.log(jsonDataList)
-        } else{
+    for (let i = 0; i < jsonDataList.length; i++) {
+      if (jsonDataList[i].hasOwnProperty(prefName)) {
+        delete jsonDataList[i][prefName]
+      } else {
         jsonDataList[i][prefName] = fetchData.result.data[PopulationType].data[i].value
-        }
-
       }
-    
+    }
 
     setJsonDataList(jsonDataList)
     setPopIsLoading(false)
-
   }
-  return { populationData, getPopulationData, checkedValues, prefNames, checkedDataList, jsonDataList, popisLoading }
+  return {
+    populationData,
+    getPopulationData,
+    checkedValues,
+    prefNames,
+    checkedDataList,
+    jsonDataList,
+    popisLoading,
+    setPrefNames
+  }
 }
